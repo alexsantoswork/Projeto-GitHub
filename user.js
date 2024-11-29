@@ -6,3 +6,11 @@ async function getUser(userName) {
 }
 
 export { getUser }
+
+
+async function usera() {
+    const resposta = await fetch('https://api.github.com/users/octocat')
+    return await resposta.json()
+}
+
+console.log(await usera())
