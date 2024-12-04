@@ -4,6 +4,8 @@ import { getRepositories } from './repositories.js'
 import { user } from './userObj.js'
 import { screen } from './screen.js'
 
+import { getEvents } from './events.js'
+
 document.getElementById('btn-search').addEventListener('click', () => {
     const userName = document.getElementById('input-search').value
     if(validateEmptyInput(userName)) return
@@ -38,9 +40,12 @@ async function getUserData(userName){
     }
 
     const repositoriesResponse = await getRepositories(userName)
+
+    const responseEvents = await getEvents(userName)
    
     user.setInfo(userResponse)
     user.setRepositories(repositoriesResponse)
+    user.setEvents(responseEvents)
 
-    screen.renderUser(user)
+    screen.renderUser(user)   
 }

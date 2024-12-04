@@ -6,13 +6,22 @@ const screen = {
                                         <div class="data">
                                           <h1>${user.name ?? 'Não possui'}</h1>
                                           <p>${user.bio ?? 'Não possui'}</p>
+                                          <small>👥 Seguidores ${user.followers} </small> <br>
                                           <small>👥 Seguindo ${user.following} </small> <br>
-                                          <small>👥 Seguidores ${user.followers} </small>
                                         </div>     
                                       </div>`
 
         let repositoriesItens = ''
-        user.repositories.forEach(repo => repositoriesItens += `<li><a href="${repo.html_url}" target="blank">${repo.name}</a></li>`)
+        user.repositories.forEach(repos => repositoriesItens += `<li>
+                                                                    <a href="${repos.html_url}" target="blank">${repos.name}
+                                                                     <div>
+                                                                        <p class"analise">📝${repos.forks}</p>
+                                                                        <p class"analise">⭐${repos.stargazers_count}</p>
+                                                                        <p class"analise">👀${repos.watchers}</p>
+                                                                        <p class"analise">📇${repos.language}</p>
+                                                                     </div>
+                                                                    </a>
+                                                                 </li>`)
 
         if (user.repositories.length > 0) {
             this.userProfile.innerHTML += `<div class="repositories section">
@@ -20,11 +29,22 @@ const screen = {
                                             <ul>${repositoriesItens}</ul>
                                            </div>`
         }
+
+        let eventItens = ''
+        user.events.forEach(event => eventItens += `<li>${event.repo.name} - ${event.type}</li>`)
+        
+        if (user.events.length > 0) {
+            this.userProfile.innerHTML += `<div>
+                                            <h2>Eventos</h2><br>
+                                            <ul>${eventItens}</ul>
+                                           </div> <br>`
+        }
     },
+    
     renderNotFound() {
         this.userProfile.innerHTML = "<h3>Usuario não encontrado</h3>"
     }
-
+    
 }
 
 export { screen } 
