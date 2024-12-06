@@ -7,7 +7,7 @@ const user = {
     following: '',
     repositories: [],
     events:[],
-    message:'',
+    
     setInfo(gitHubUser){
         this.avatarUrl = gitHubUser.avatar_url
         this.name = gitHubUser.name
@@ -22,6 +22,7 @@ const user = {
 
     setEvents(event){
         this.events = event
+        
     }
 }
 

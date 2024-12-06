@@ -15,10 +15,10 @@ const screen = {
         user.repositories.forEach(repos => repositoriesItens += `<li>
                                                                     <a href="${repos.html_url}" target="blank">${repos.name}
                                                                      <div>
-                                                                        <p class"analise">📝${repos.forks}</p>
-                                                                        <p class"analise">⭐${repos.stargazers_count}</p>
-                                                                        <p class"analise">👀${repos.watchers}</p>
-                                                                        <p class"analise">📇${repos.language}</p>
+                                                                        <p class"repo-date">🍴${repos.forks}</p>
+                                                                        <p class"repo-date">⭐${repos.stargazers_count}</p>
+                                                                        <p class"repo-date">👀${repos.watchers}</p>
+                                                                        <p class"repo-date">👨‍💻${repos.language}</p>
                                                                      </div>
                                                                     </a>
                                                                  </li>`)
@@ -30,15 +30,29 @@ const screen = {
                                            </div>`
         }
 
-        let eventItens = ''
-        user.events.forEach(event => eventItens += `<li>${event.repo.name} - ${event.type}</li>`)
-        
-        if (user.events.length > 0) {
-            this.userProfile.innerHTML += `<div>
-                                            <h2>Eventos</h2><br>
-                                            <ul>${eventItens}</ul>
-                                           </div> <br>`
+        if(user.events.length > 0){
+            let eventsItens = '';
+
+            user.events.forEach(events => {
+                if (events.payload) {
+                    if (events.payload.commits){
+                        const commits = events.payload.commits;
+                        const commitsList = commits.map(commit => `<span>${commit.message}</span>`);
+
+                        eventsItens += `<p><span>${events.repo.name} - </span> ${commitsList}</p>`;
+                    } else {
+                        eventsItens += `<p><span>${events.repo.name} - </span> Sem mensagem de commit</p>`
+                    }
+                }
+            })
+
+            this.userProfile.innerHTML +=
+                 `<div class="events">
+                      <h2>Eventos</h2> <br> 
+                      <p>${eventsItens}</p>
+                  </div>`
         }
+
     },
     
     renderNotFound() {

@@ -7,13 +7,3 @@ async function getRepositories(userName) {
 }
 
 export { getRepositories }
-
-
-
-// async function repositorieList() {
-//     const resposta = await fetch('https://api.github.com/users/alexsantoswork/repos')
-//     return await resposta.json()
-// }
-
-
-// console.log( await repositorieList())

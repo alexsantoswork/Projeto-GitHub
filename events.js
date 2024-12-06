@@ -6,12 +6,3 @@ async function getEvents(userName) {
 }
 
 export { getEvents }
-
-
-// async function eventList() {
-//     const resposta = await fetch('https://api.github.com/users/alexsantoswork/events')
-//     return await resposta.json()
-// }
-
-
-// console.log( await eventList())
